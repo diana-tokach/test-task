@@ -1,0 +1,40 @@
+@import url(https://fonts.googleapis.com/css?family=EB+Garamond:400&subset=cyrillic,latin);
+
+body {
+	font-family: 'EB Garamond', serif;
+	font-size: 20px;
+}
+#elements {
+  padding: 20px 0;
+}
+input[type="checkbox"] {
+  margin: 5px 15px;
+  vertical-align: sub;
+  display: inline-block;
+  width: 30px;
+  height: 17px;
+}
+.completed + i,
+.completed {
+  opacity: 0.1;
+  -webkit-transition: 0.3s all;
+  -o-transition: 0.3s all;
+  transition: 0.3s all;
+}
+.uncompleted + i,
+.uncompleted {
+	-webkit-transition: 0.3s all;
+	-o-transition: 0.3s all;
+	transition: 0.3s all;
+}
+div.el {
+  padding-bottom: 5px;
+}
+@media (max-width: 767px) {
+	body {
+		font-size: 15px;
+	}
+	input[type="checkbox"] {
+		width: 14px;
+	}
+}

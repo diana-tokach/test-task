@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>React JS App</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/animate.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+  <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.min.js"></script>
+  <script type="text/babel">
+        class ListElement extends React.Component {
+
+            constructor(props) {
+              super(props);
+              this.state = {
+                title: props.dataElement.title,
+                completed: props.dataElement.completed 
+              }
+              this.press = this.press.bind(this);
+            }
+
+            press() {
+                this.setState({completed: !this.state.completed});
+            }
+
+            render() {
+                let complete;
+                if(this.state.completed) 
+                    complete = <input className="completed" type="checkbox" onClick={this.press} checked/>
+                else 
+                    complete = <input className="uncompleted" type="checkbox" onClick={this.press}/>
+                let title = <i>{this.state.title}</i>
+                return (
+                    <div className="el">
+                        {complete}
+                        {title}
+                    </div>
+                )
+            }
+        }
+
+        class List extends React.Component {
+        
+            constructor(props) {
+              super(props);
+              this.state = {
+                data: props.data
+              }
+            }
+        
+
+           render() {
+             const data  = this.props.data;
+             const elementsList = data.map(element => {
+                    return (
+                        <ListElement dataElement={element}/>   
+                    )
+             })
+
+             return (
+                <div className="animated fadeInDown">
+                    {elementsList}
+                </div>
+             )
+           }
+        }
+
+
+        fetch("https://jsonplaceholder.typicode.com/todos").then(function(response) {
+            return response.json();
+        }).then(function(data) {
+            ReactDOM.render(<List data={data}/>, document.getElementById('elements'));
+        });
+
+    </script>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+    	<div class="col-md-6 col-xs-12">
+    		<div id="elements"></div>
+    	</div>
+    </div>
+  </div>
+</body>
+</html>
